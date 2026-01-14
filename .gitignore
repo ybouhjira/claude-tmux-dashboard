@@ -1,0 +1,22 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.log
+.*.swp
+
+# Dashboard data (user-specific)
+dashboard.json
+
+# Backup files
+*.bak
+*.backup
