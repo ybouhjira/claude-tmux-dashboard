@@ -13,7 +13,12 @@ NC='\033[0m'
 
 # Check if session exists
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    echo -e "${YELLOW}Session '$SESSION_NAME' already exists. Attaching...${NC}"
+    echo -e "${YELLOW}Session '$SESSION_NAME' exists. Starting fresh Claude session...${NC}"
+    # Kill any existing process in Claude pane and start fresh
+    tmux send-keys -t "$SESSION_NAME:main.0" C-c
+    sleep 0.3
+    CLAUDE_ARGS="--dangerously-skip-permissions --model opus $*"
+    tmux send-keys -t "$SESSION_NAME:main.0" "claude $CLAUDE_ARGS" C-m
     tmux attach -t "$SESSION_NAME"
     exit 0
 fi
@@ -36,8 +41,10 @@ tmux send-keys -t "$SESSION_NAME:main.1" "$SCRIPT_DIR/dashboard-watch.sh" C-m
 # Focus on Claude pane (left)
 tmux select-pane -t "$SESSION_NAME:main.0"
 
-# Start Claude Code in left pane (with preferred flags)
-tmux send-keys -t "$SESSION_NAME:main.0" "claude --dangerously-skip-permissions --model opus" C-m
+# Start Claude Code in left pane
+# Pass through any extra args (e.g., --chrome, --resume)
+CLAUDE_ARGS="--dangerously-skip-permissions --model opus $*"
+tmux send-keys -t "$SESSION_NAME:main.0" "claude $CLAUDE_ARGS" C-m
 
 # Attach to session
 tmux attach -t "$SESSION_NAME"
