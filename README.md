@@ -1,5 +1,7 @@
 # 📊 Claude Tmux Dashboard
 
+[![CI](https://github.com/ybouhjira/claude-tmux-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/ybouhjira/claude-tmux-dashboard/actions/workflows/ci.yml)
+
 ```
 ╭──────────────────────────────────────────────────────────╮
 │              📊 CLAUDE CODE DASHBOARD                    │
@@ -19,6 +21,8 @@
 ```
 
 A beautiful live dashboard for [Claude Code](https://claude.ai/code) that displays git status, CI results, and project info in a tmux split-pane.
+
+![Demo](demo.gif)
 
 ## ✨ Features
 
